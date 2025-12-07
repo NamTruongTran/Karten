@@ -200,7 +200,7 @@ body.white {
     display: none;
 }
 
-#mv_msg .envelope > .flap_outside {
+#mv_msg .envelope>.flap_outside {
     -moz-transform: rotateX(-180deg) rotateY(180deg) translateY(-1.2px) translateX(0) translateZ(2px);
     -webkit-transform: rotateX(-180deg) rotateY(180deg) translateY(-1.2px) translateX(0) translateZ(2px);
     transform: rotateX(-180deg) rotateY(180deg) translateY(-1.2px) translateX(0) translateZ(2px);
@@ -226,7 +226,7 @@ body.white {
     transform: rotateX(0deg) translateZ(1px);
 }
 
-#mv_msg .animation .envelope.closed > .flap_outside {
+#mv_msg .animation .envelope.closed>.flap_outside {
     display: none;
 }
 
@@ -250,7 +250,7 @@ body.white {
     transform: rotateX(-180deg) translateZ(0.1px) translateY(0px);
 }
 
-#mv_msg .envelope.closed > .flap_outside {
+#mv_msg .envelope.closed>.flap_outside {
     -moz-transform: rotateX(0deg) translateZ(2px) translateY(-1.2px);
     -webkit-transform: rotateX(0deg) translateZ(2px) translateY(-1.2px);
     transform: rotateX(0deg) translateZ(2px) translateY(-1.2px);
@@ -360,9 +360,9 @@ body.white {
     height: 100%;
     background-color: #d0d0d0;
     background-image: linear-gradient(135deg, #e8e8e8 25%, transparent 25%),
-                      linear-gradient(225deg, #e8e8e8 25%, transparent 25%),
-                      linear-gradient(45deg, #e8e8e8 25%, transparent 25%),
-                      linear-gradient(315deg, #e8e8e8 25%, #d0d0d0 25%);
+        linear-gradient(225deg, #e8e8e8 25%, transparent 25%),
+        linear-gradient(45deg, #e8e8e8 25%, transparent 25%),
+        linear-gradient(315deg, #e8e8e8 25%, #d0d0d0 25%);
     background-position: 10px 0, 10px 0, 0 0, 0 0;
     background-size: 20px 20px;
     background-repeat: repeat;
@@ -430,6 +430,7 @@ body.white {
 }
 
 @media (max-width: 600px) {
+
     #mv_msg .envelope .card-front .card-title,
     #mv_msg .envelope .card-front .card-message,
     #mv_msg .envelope .card-front .card-sender {
@@ -481,7 +482,10 @@ body.white {
     line-height: 1.8;
     letter-spacing: 0.01em;
     margin: 0 0 clamp(14px, 2.5vw, 20px) 0;
-    text-indent: clamp(20px, 3vw, 30px);
+    /* text-indent: clamp(20px, 3vw, 30px); */
+    /* Neu */
+    text-indent: 0;
+    /* Neu */
 }
 
 #mv_msg .envelope .card-back .card-back-content p:first-child {
