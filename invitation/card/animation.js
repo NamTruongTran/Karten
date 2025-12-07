@@ -182,13 +182,21 @@
         const cardBackContent = document.querySelector('.card-back-content');
         if (cardBackContent) {
             const message = friend.customBackMessage || globalSettings.cardBackMessage || 'I wish you all the best for the future.';
-            const formattedMessage = message.replace(/\n/g, '<br>');
 
-            // Get signatures (friend-specific or global)
+            // 1) Text in Absätze aufteilen (leere Zeile = neuer Absatz)
+            const paragraphs = message
+                .trim()
+                .split(/\n\s*\n+/);
+
+            // 2) Für jeden Absatz ein <p>, einfache \n → <br>
+            const paragraphsHTML = paragraphs
+                .map(p => `<p>${p.replace(/\n/g, '<br>')}</p>`)
+                .join('');
+
+            // 3) Signaturen (wie bisher)
             const sig1 = friend.signature1 || globalSettings.signature1;
             const sig2 = friend.signature2 || globalSettings.signature2;
 
-            // Build signatures HTML
             let signaturesHTML = '';
             if (sig1 || sig2) {
                 const singleClass = (sig1 && !sig2) || (!sig1 && sig2) ? ' single' : '';
@@ -198,8 +206,10 @@
                 signaturesHTML += '</div>';
             }
 
-            cardBackContent.innerHTML = `<p>${formattedMessage}</p>${signaturesHTML}`;
+            // 4) Alles zusammen einfügen
+            cardBackContent.innerHTML = `${paragraphsHTML}${signaturesHTML}`;
         }
+
 
         const envelopeColor = friend.envelopeColor || globalSettings.envelopeColor;
         if (envelopeColor) {
