@@ -488,6 +488,10 @@ body.white {
     /* Neu */
 }
 
+.card-back-content p.closing-line {
+    margin-bottom: clamp(4px, 1vw, 8px) !important;
+}
+
 #mv_msg .envelope .card-back .card-back-content p:first-child {
     text-indent: 0;
 }

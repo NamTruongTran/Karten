@@ -224,8 +224,15 @@
             }
 
             // 4) Aus Absätzen <p>-Tags machen, einfache \n in <br> umwandeln
+            // const paragraphsHTML = paragraphs
+            //     .map(p => `<p>${p.replace(/\n/g, '<br>')}</p>`)
+            //     .join('');
             const paragraphsHTML = paragraphs
-                .map(p => `<p>${p.replace(/\n/g, '<br>')}</p>`)
+                .map(p => {
+                    const isClosingLine = /^Ihre\s*$/i.test(p.trim());
+                    const cls = isClosingLine ? 'class="closing-line"' : '';
+                    return `<p ${cls}>${p.replace(/\n/g, '<br>')}</p>`;
+                })
                 .join('');
 
             // ------- Signaturen (deine bisherige Logik) -------
