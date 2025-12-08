@@ -181,19 +181,54 @@
 
         const cardBackContent = document.querySelector('.card-back-content');
         if (cardBackContent) {
-            const message = friend.customBackMessage || globalSettings.cardBackMessage || 'I wish you all the best for the future.';
+            const rawMessage =
+                friend.customBackMessage ||
+                globalSettings.cardBackMessage ||
+                'I wish you all the best for the future.';
 
-            // 1) Text in Absätze aufteilen (leere Zeile = neuer Absatz)
-            const paragraphs = message
-                .trim()
-                .split(/\n\s*\n+/);
+            // --- Text in Zeilen aufteilen ---
+            const lines = rawMessage.trim().split('\n');
 
-            // 2) Für jeden Absatz ein <p>, einfache \n → <br>
+            const paragraphs = [];
+            let buffer = [];
+
+            for (const line of lines) {
+                const trimmed = line.trim();
+
+                // 1) Leere Zeile -> Absatz beenden
+                if (!trimmed) {
+                    if (buffer.length) {
+                        paragraphs.push(buffer.join('\n'));
+                        buffer = [];
+                    }
+                    continue;
+                }
+
+                // 2) Zeile, die NUR "Ihre" enthält -> eigener Absatz
+                if (/^Ihre\s*$/i.test(trimmed)) {
+                    if (buffer.length) {
+                        paragraphs.push(buffer.join('\n'));
+                        buffer = [];
+                    }
+                    paragraphs.push(trimmed);
+                    continue;
+                }
+
+                // 3) Normale Zeile -> an aktuellen Absatz anhängen
+                buffer.push(trimmed);
+            }
+
+            // Letzten Puffer nicht vergessen
+            if (buffer.length) {
+                paragraphs.push(buffer.join('\n'));
+            }
+
+            // 4) Aus Absätzen <p>-Tags machen, einfache \n in <br> umwandeln
             const paragraphsHTML = paragraphs
                 .map(p => `<p>${p.replace(/\n/g, '<br>')}</p>`)
                 .join('');
 
-            // 3) Signaturen (wie bisher)
+            // ------- Signaturen (deine bisherige Logik) -------
             const sig1 = friend.signature1 || globalSettings.signature1;
             const sig2 = friend.signature2 || globalSettings.signature2;
 
@@ -206,10 +241,9 @@
                 signaturesHTML += '</div>';
             }
 
-            // 4) Alles zusammen einfügen
+            // 5) Alles einfügen
             cardBackContent.innerHTML = `${paragraphsHTML}${signaturesHTML}`;
         }
-
 
         const envelopeColor = friend.envelopeColor || globalSettings.envelopeColor;
         if (envelopeColor) {
