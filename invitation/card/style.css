@@ -488,6 +488,12 @@ body.white {
     /* Neu */
 }
 
+/* Weniger Abstand zwischen den letzten beiden Absätzen */
+.card-back-content p:last-child,
+.card-back-content p:nth-last-child(2) {
+    margin-bottom: clamp(5px, 1vw, 8px) !important;
+}
+
 #mv_msg .envelope .card-back .card-back-content p:first-child {
     text-indent: 0;
 }
