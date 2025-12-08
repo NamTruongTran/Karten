@@ -488,8 +488,20 @@ body.white {
     /* Neu */
 }
 
+/* Speziell für den Absatz nur mit "Ihre" */
 .card-back-content p.closing-line {
-    margin-bottom: clamp(4px, 1vw, 8px) !important;
+    margin-bottom: 2px !important;
+    /* sehr kleiner Abstand nach unten */
+    line-height: 1.2;
+    /* weniger Zeilenhöhe */
+}
+
+/* Und auch für den Absatz direkt danach ("EAB Energie-Anlagen …") */
+.card-back-content p.closing-line+p {
+    margin-top: 2px;
+    /* optional, zur Sicherheit */
+    line-height: 1.2;
+    /* dichter an "Ihre" dran */
 }
 
 #mv_msg .envelope .card-back .card-back-content p:first-child {
